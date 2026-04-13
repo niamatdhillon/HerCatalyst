@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HerCatalyst | Unified Student OS</title>
+    <title>HerCatalyst | The Unified Student OS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -11,7 +11,7 @@
         body { background-color: var(--hc-light); font-family: 'Inter', sans-serif; overflow: hidden; }
         .sidebar { background: linear-gradient(180deg, #880E4F 0%, #D81B60 100%); }
         .feature-card { transition: all 0.3s ease; border: 1px solid #fce4ec; cursor: pointer; height: 100%; }
-        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.05); border-color: #f06292; }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-color: #f06292; }
         .active-tab { border-left: 4px solid white; background: rgba(255,255,255,0.1); }
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-thumb { background: #D81B60; border-radius: 10px; }
@@ -55,58 +55,62 @@
         <div class="flex justify-between items-start mb-10">
             <div>
                 <h2 id="tab-title" class="text-4xl font-black text-pink-900 mb-2 italic uppercase">Academics</h2>
-                <p id="tab-desc" class="text-pink-600 font-medium">Empowering students with 35 unique integrated features.</p>
+                <p id="tab-desc" class="text-pink-600 font-medium italic">Empowering your B.Tech journey with 35 integrated tools.</p>
             </div>
             <div class="text-right">
                 <p class="text-sm font-bold text-pink-900 leading-tight">Niamat Dhillon</p>
-                <p class="text-[10px] text-pink-500 uppercase font-black">Lead Developer</p>
+                <p class="text-[10px] text-pink-500 uppercase font-black tracking-widest">Lead Researcher</p>
             </div>
         </div>
 
-        <div id="feature-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-10"></div>
+        <div id="feature-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-20"></div>
     </main>
 
     <script>
         const allFeatures = {
             academics: [
-                { title: "Cycle-Aware Brain", desc: "Predicts peak concentration for B.Tech thesis work.", icon: "fa-brain", primary: true, link: "https://hercatalyst.streamlit.app" },
-                { title: "Comprehensive E-Library", desc: "One-stop hub for PYQs, notes, and research.", icon: "fa-book" },
-                { title: "Study Gamification", desc: "Badges and rewards for completing modules.", icon: "fa-trophy" },
-                { title: "Attendance Log", desc: "Geo-fenced class verification.", icon: "fa-check-circle" },
-                { title: "Tutor Connect", desc: "1-on-1 STEM mentorship booking.", icon: "fa-user-graduate" },
-                { title: "Research Portfolio", desc: "Showcase PBL projects to recruiters.", icon: "fa-folder-open" }
+                { title: "Cycle-Aware Brain", desc: "AI Predictor for concentration & academic focus.", icon: "fa-brain", primary: true, link: "https://hercatalyst.streamlit.app" },
+                { title: "E-Library Hub", desc: "Unified access to textbooks, PYQs, and notes.", icon: "fa-book" },
+                { title: "Study Gamification", desc: "Earn rewards and badges for module completion.", icon: "fa-trophy" },
+                { title: "Attendance Tracker", desc: "Geo-fenced automated class logging.", icon: "fa-check-circle" },
+                { title: "Tutor Connect", desc: "Book 1-on-1 sessions with STEM mentors.", icon: "fa-user-graduate" },
+                { title: "Research Portfolio", desc: "Showcase your PBL and thesis projects.", icon: "fa-folder-open" }
             ],
             health: [
-                { title: "Symptom Tracker", desc: "Mood and physical cycle logging.", icon: "fa-notes-medical" },
-                { title: "Mental Health Hub", desc: "Peer support and anonymous counseling.", icon: "fa-spa" },
-                { title: "Cycle-Synced Diet", desc: "Nutrition plans for every phase.", icon: "fa-apple-alt" },
-                { title: "Fitness Sync", desc: "Workouts designed for energy windows.", icon: "fa-running" },
-                { title: "Medical Vault", desc: "Secure digital health records.", icon: "fa-file-medical" }
+                { title: "Symptom Tracker", desc: "Log moods, energy, and physical cycles.", icon: "fa-notes-medical" },
+                { title: "Mental Health Hub", desc: "Anonymous counseling and peer support.", icon: "fa-spa" },
+                { title: "Cycle-Synced Diet", desc: "Nutritional plans tailored to your phase.", icon: "fa-apple-alt" },
+                { title: "Fitness Windows", desc: "Workouts optimized for peak energy.", icon: "fa-running" },
+                { title: "Medical Vault", desc: "Secure records of campus clinic visits.", icon: "fa-file-medical" },
+                { title: "Sleep Tracker", desc: "Monitoring recovery for academic stamina.", icon: "fa-bed" }
             ],
             safety: [
-                { title: "Safe-Path Map", desc: "Well-lit campus route navigation.", icon: "fa-route" },
-                { title: "Fake Call Generator", desc: "Social escape protocol.", icon: "fa-phone" },
-                { title: "Shuttle Trace", desc: "Live campus transport tracking.", icon: "fa-bus" },
-                { title: "Security Escort", desc: "Request campus guard accompaniment.", icon: "fa-shield-alt" },
-                { title: "SOS Beacon", desc: "Instant location ping to security.", icon: "fa-bullhorn" }
+                { title: "Safe-Path Map", desc: "Well-lit campus navigation routes.", icon: "fa-route" },
+                { title: "Fake Call Generator", desc: "Automated social escape protocol.", icon: "fa-phone" },
+                { title: "Shuttle Trace", desc: "Live location of campus transport.", icon: "fa-bus" },
+                { title: "Security Escort", desc: "Request guard assistance for night walks.", icon: "fa-shield-alt" },
+                { title: "SOS Beacon", desc: "Instant location ping to campus security.", icon: "fa-bullhorn" }
             ],
             career: [
-                { title: "STEM Grants", desc: "Scholarships curated for women.", icon: "fa-microscope" },
-                { title: "Job Board", desc: "On-campus internship alerts.", icon: "fa-briefcase" },
-                { title: "Writing Lab", desc: "AI citation and thesis support.", icon: "fa-pen-nib" },
-                { title: "Alumni Network", desc: "Mentorship from senior women.", icon: "fa-link" }
+                { title: "STEM Grants", desc: "Scholarships curated for women in tech.", icon: "fa-microscope" },
+                { title: "Job Board", desc: "Internships and on-campus hiring alerts.", icon: "fa-briefcase" },
+                { title: "Writing Lab", desc: "AI support for thesis citation and grammar.", icon: "fa-pen-nib" },
+                { title: "Alumni Network", desc: "Mentorship from industry-leading women.", icon: "fa-link" },
+                { title: "Portfolio Builder", desc: "Dynamic CV generator for researchers.", icon: "fa-id-card" }
             ],
             productivity: [
-                { title: "Budget AI", desc: "Student spending tracker.", icon: "fa-wallet" },
-                { title: "Focus Timers", desc: "Phase-aligned Pomodoro work.", icon: "fa-clock" },
-                { title: "Smart Reminders", desc: "Alerts based on cognitive load.", icon: "fa-bell" },
-                { title: "Personal Diary", desc: "Journaling for mental clarity.", icon: "fa-journal-whills" }
+                { title: "Budget AI", desc: "Tracker for student spending and grants.", icon: "fa-wallet" },
+                { title: "Focus Timers", desc: "Phase-aligned Pomodoro work cycles.", icon: "fa-clock" },
+                { title: "Smart Alerts", desc: "Reminders based on cognitive load.", icon: "fa-bell" },
+                { title: "Personal Diary", desc: "Daily achievement and mood journaling.", icon: "fa-journal-whills" },
+                { title: "Event RSVP", desc: "One-click registration for seminars.", icon: "fa-calendar-check" }
             ],
             social: [
-                { title: "Women Forums", desc: "Private discussion safe spaces.", icon: "fa-comments" },
-                { title: "Roommate Finder", desc: "Peer compatibility matching.", icon: "fa-home" },
-                { title: "Club Hub", desc: "RSVP to campus cultural events.", icon: "fa-calendar-star" },
-                { title: "Volunteer Portal", desc: "Community impact tracking.", icon: "fa-hands-helping" }
+                { title: "Women-Only Forums", desc: "Safe spaces for campus discussions.", icon: "fa-comments" },
+                { title: "Roommate Finder", desc: "Compatibility matching for campus living.", icon: "fa-home" },
+                { title: "Club Hub", desc: "Explore and join student-led organizations.", icon: "fa-users" },
+                { title: "Volunteer Portal", desc: "Track community service hours.", icon: "fa-hands-helping" },
+                { title: "Campus Radio", desc: "Student-led podcasts and news.", icon: "fa-microphone" }
             ]
         };
 
@@ -114,7 +118,7 @@
             const grid = document.getElementById('feature-grid');
             const title = document.getElementById('tab-title');
             grid.innerHTML = '';
-            title.innerText = category.charAt(0).toUpperCase() + category.slice(1);
+            title.innerText = category.toUpperCase();
 
             document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active-tab'));
             document.getElementById('btn-' + category).classList.add('active-tab');
@@ -128,7 +132,7 @@
                     </div>
                     <h4 class="font-black text-pink-900 mb-2">${f.title}</h4>
                     <p class="text-sm text-gray-500 mb-6 leading-relaxed">${f.desc}</p>
-                    ${f.primary ? `<a href="${f.link}" target="_blank" class="block w-full text-center bg-pink-600 text-white py-3 rounded-xl font-bold shadow-md hover:bg-pink-700 transition-all">Launch AI Brain</a>` : ''}
+                    ${f.primary ? `<a href="${f.link}" target="_blank" class="block w-full text-center bg-pink-600 text-white py-3 rounded-xl font-bold shadow-md hover:bg-pink-700 transition-all uppercase tracking-tighter">Launch AI Brain</a>` : ''}
                 `;
                 grid.appendChild(card);
             });
