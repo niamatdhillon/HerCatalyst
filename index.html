@@ -3,137 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HerCatalyst | The Unified Student OS</title>
+    <title>HerCatalyst | Unified Student OS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root { --hc-pink: #D81B60; --hc-light: #FFF5F7; }
-        body { background-color: var(--hc-light); font-family: 'Inter', sans-serif; }
+        body { background-color: var(--hc-light); font-family: 'Inter', sans-serif; overflow: hidden; }
         .sidebar { background: linear-gradient(180deg, #880E4F 0%, #D81B60 100%); }
-        .feature-card { transition: all 0.3s ease; border: 1px solid #fce4ec; }
-        .feature-card:hover { transform: translateY(-5px); shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: #f06292; }
+        .feature-card { transition: all 0.3s ease; border: 1px solid #fce4ec; cursor: pointer; height: 100%; }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.05); border-color: #f06292; }
         .active-tab { border-left: 4px solid white; background: rgba(255,255,255,0.1); }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: #D81B60; border-radius: 10px; }
     </style>
 </head>
 <body class="flex">
 
-    <aside class="sidebar w-72 min-h-screen text-white p-6 sticky top-0">
+    <aside class="sidebar w-72 min-h-screen text-white p-6 flex flex-col sticky top-0">
         <div class="mb-10">
             <h1 class="text-2xl font-black italic tracking-tighter">HerCatalyst 🌸</h1>
-            <p class="text-[10px] opacity-70 uppercase tracking-widest mt-1">Unified Student Ecosystem</p>
+            <p class="text-[10px] opacity-70 uppercase tracking-widest mt-1">35-Feature Ecosystem</p>
         </div>
         
-        <nav class="space-y-1">
+        <nav class="space-y-1 flex-1 overflow-y-auto pr-2">
             <button onclick="showTab('academics')" class="w-full flex items-center p-3 rounded-lg hover:bg-white/10 active-tab" id="btn-academics">
                 <i class="fas fa-book-open w-6"></i> <span class="text-sm font-semibold">01 Academics</span>
             </button>
             <button onclick="showTab('health')" class="w-full flex items-center p-3 rounded-lg hover:bg-white/10" id="btn-health">
-                <i class="fas fa-heartbeat w-6"></i> <span class="text-sm font-semibold">02 Health & Wellness</span>
+                <i class="fas fa-heartbeat w-6"></i> <span class="text-sm font-semibold">02 Health</span>
             </button>
-            <button onclick="showTab('productivity')" class="w-full flex items-center p-3 rounded-lg hover:bg-white/10" id="btn-productivity">
-                <i class="fas fa-bolt w-6"></i> <span class="text-sm font-semibold">03 Productivity</span>
-            </button>
-            <button onclick="showTab('campus')" class="w-full flex items-center p-3 rounded-lg hover:bg-white/10" id="btn-campus">
-                <i class="fas fa-university w-6"></i> <span class="text-sm font-semibold">04 Campus Integration</span>
-            </button>
-            <button onclick="showTab('safety')" class="w-full flex items-center p-3 rounded-lg hover:bg-white/10 text-pink-200" id="btn-safety">
-                <i class="fas fa-shield-alt w-6"></i> <span class="text-sm font-semibold">05 Safety</span>
-            </button>
-            <button onclick="showTab('social')" class="w-full flex items-center p-3 rounded-lg hover:bg-white/10" id="btn-social">
-                <i class="fas fa-users w-6"></i> <span class="text-sm font-semibold">06 Social Community</span>
+            <button onclick="showTab('safety')" class="w-full flex items-center p-3 rounded-lg hover:bg-white/10" id="btn-safety">
+                <i class="fas fa-shield-alt w-6"></i> <span class="text-sm font-semibold">03 Safety</span>
             </button>
             <button onclick="showTab('career')" class="w-full flex items-center p-3 rounded-lg hover:bg-white/10" id="btn-career">
-                <i class="fas fa-briefcase w-6"></i> <span class="text-sm font-semibold">07 Career</span>
+                <i class="fas fa-briefcase w-6"></i> <span class="text-sm font-semibold">04 Career</span>
             </button>
-            <button onclick="showTab('engagement')" class="w-full flex items-center p-3 rounded-lg hover:bg-white/10" id="btn-engagement">
-                <i class="fas fa-gamepad w-6"></i> <span class="text-sm font-semibold">08 Engagement</span>
+            <button onclick="showTab('productivity')" class="w-full flex items-center p-3 rounded-lg hover:bg-white/10" id="btn-productivity">
+                <i class="fas fa-bolt w-6"></i> <span class="text-sm font-semibold">05 Productivity</span>
             </button>
-            <button onclick="showTab('inclusivity')" class="w-full flex items-center p-3 rounded-lg hover:bg-white/10" id="btn-inclusivity">
-                <i class="fas fa-wheelchair w-6"></i> <span class="text-sm font-semibold">09 Inclusivity</span>
+            <button onclick="showTab('social')" class="w-full flex items-center p-3 rounded-lg hover:bg-white/10" id="btn-social">
+                <i class="fas fa-users w-6"></i> <span class="text-sm font-semibold">06 Community</span>
             </button>
         </nav>
 
-        <div class="mt-20 p-4 bg-white/10 rounded-2xl">
-            <p class="text-xs font-bold mb-2">SOS EMERGENCY</p>
-            <button class="w-full bg-red-500 py-3 rounded-xl font-black animate-pulse">ACTIVATE SOS</button>
+        <div class="mt-auto p-4 bg-white/10 rounded-2xl">
+            <button class="w-full bg-red-500 py-3 rounded-xl font-black shadow-lg animate-pulse">SOS EMERGENCY</button>
         </div>
     </aside>
 
     <main class="flex-1 p-10 overflow-y-auto h-screen">
-        
         <div class="flex justify-between items-start mb-10">
             <div>
-                <h2 id="tab-title" class="text-4xl font-black text-pink-900 mb-2">Academic & Resource Management</h2>
-                <p id="tab-desc" class="text-pink-600 font-medium">Empowering your education with AI-driven insights.</p>
+                <h2 id="tab-title" class="text-4xl font-black text-pink-900 mb-2 italic uppercase">Academics</h2>
+                <p id="tab-desc" class="text-pink-600 font-medium">Empowering students with 35 unique integrated features.</p>
             </div>
-            <div class="flex items-center space-x-4">
-                <div class="text-right">
-                    <p class="text-sm font-bold text-pink-900">Niamat Dhillon</p>
-                    <p class="text-[10px] text-pink-500 uppercase tracking-widest">Data Science Lead</p>
-                </div>
-                <div class="w-12 h-12 bg-pink-200 rounded-full border-2 border-pink-500"></div>
+            <div class="text-right">
+                <p class="text-sm font-bold text-pink-900 leading-tight">Niamat Dhillon</p>
+                <p class="text-[10px] text-pink-500 uppercase font-black">Lead Developer</p>
             </div>
         </div>
 
-        <div id="feature-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            </div>
-
+        <div id="feature-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-10"></div>
     </main>
 
     <script>
         const allFeatures = {
             academics: [
-                { id: 1, title: "Comprehensive E-Library", desc: "Access textbooks, PYQs, and notes with annotation tools.", icon: "fa-book" },
-                { id: 2, title: "Cycle-Aware Organizer", desc: "AI predicts concentration based on your biological phase.", icon: "fa-brain", primary: true, link: "YOUR_STREAMLIT_URL" },
-                { id: 3, title: "Study Gamification", desc: "Quizzes and rewards for mastering modules.", icon: "fa-trophy" },
-                { id: 4, title: "Attendance Tracker", desc: "Geolocation-based logging for classes.", icon: "fa-check-circle" },
-                { id: 5, title: "Tutor Connect", desc: "Book sessions with subject-specific mentors.", icon: "fa-chalkboard-teacher" },
-                { id: 6, title: "Course Management", desc: "Enrollment alerts and deadline tracking.", icon: "fa-list-alt" }
+                { title: "Cycle-Aware Brain", desc: "Predicts peak concentration for B.Tech thesis work.", icon: "fa-brain", primary: true, link: "https://hercatalyst.streamlit.app" },
+                { title: "Comprehensive E-Library", desc: "One-stop hub for PYQs, notes, and research.", icon: "fa-book" },
+                { title: "Study Gamification", desc: "Badges and rewards for completing modules.", icon: "fa-trophy" },
+                { title: "Attendance Log", desc: "Geo-fenced class verification.", icon: "fa-check-circle" },
+                { title: "Tutor Connect", desc: "1-on-1 STEM mentorship booking.", icon: "fa-user-graduate" },
+                { title: "Research Portfolio", desc: "Showcase PBL projects to recruiters.", icon: "fa-folder-open" }
             ],
             health: [
-                { id: 7, title: "Health Tracker", desc: "Log phases, moods, and symptoms.", icon: "fa-notes-medical" },
-                { id: 8, title: "Mental Health Support", icon: "fa-spa", desc: "Counseling slots and peer groups." },
-                { id: 9, title: "Fitness & Nutrition", icon: "fa-apple-alt", desc: "Cycle-synced diet and workout plans." },
-                { id: 10, title: "Medical Records", icon: "fa-file-medical", desc: "Secure digital vault for campus clinic visits." }
-            ],
-            productivity: [
-                { id: 11, title: "Reminders & Alerts", icon: "fa-bell", desc: "Smart notifications for deadlines." },
-                { id: 12, title: "Focus Timers", icon: "fa-clock", desc: "Pomodoro timers tailored to energy levels." },
-                { id: 13, title: "Finance Tracker", icon: "fa-wallet", desc: "Budget goals and overspending alerts." },
-                { id: 14, title: "Personal Diary", icon: "fa-journal-whills", desc: "Space for daily achievement reflections." }
-            ],
-            campus: [
-                { id: 15, title: "Interactive Map", icon: "fa-map", desc: "Safe navigation and shuttle tracking." },
-                { id: 16, title: "Clubs & Events Hub", icon: "fa-calendar-star", desc: "RSVP to cultural and wellness events." },
-                { id: 17, title: "Roommate Finder", icon: "fa-users", desc: "Connect with compatible peers for housing." },
-                { id: 18, title: "Campus Radio", icon: "fa-microphone", desc: "Listen to student-led podcasts." }
+                { title: "Symptom Tracker", desc: "Mood and physical cycle logging.", icon: "fa-notes-medical" },
+                { title: "Mental Health Hub", desc: "Peer support and anonymous counseling.", icon: "fa-spa" },
+                { title: "Cycle-Synced Diet", desc: "Nutrition plans for every phase.", icon: "fa-apple-alt" },
+                { title: "Fitness Sync", desc: "Workouts designed for energy windows.", icon: "fa-running" },
+                { title: "Medical Vault", desc: "Secure digital health records.", icon: "fa-file-medical" }
             ],
             safety: [
-                { id: 19, title: "SOS Button", icon: "fa-bullhorn", desc: "Real-time location sharing with security." },
-                { id: 20, title: "Fake Call Option", icon: "fa-phone", desc: "Diffuse uncomfortable social situations." },
-                { id: 21, title: "Safety Pathing", icon: "fa-route", desc: "Highlight well-lit routes on campus." }
-            ],
-            social: [
-                { id: 22, title: "Women-Only Forums", icon: "fa-comment-dots", desc: "Safe spaces for advice and sharing." },
-                { id: 23, title: "Alumni Network", icon: "fa-user-graduate", desc: "Mentorship for male-dominated industries." },
-                { id: 24, title: "Empowerment Groups", icon: "fa-fist-raised", desc: "Volunteering for women's rights." },
-                { id: 25, title: "Community Service", icon: "fa-hands-helping", desc: "Track volunteer hours for recognition." }
+                { title: "Safe-Path Map", desc: "Well-lit campus route navigation.", icon: "fa-route" },
+                { title: "Fake Call Generator", desc: "Social escape protocol.", icon: "fa-phone" },
+                { title: "Shuttle Trace", desc: "Live campus transport tracking.", icon: "fa-bus" },
+                { title: "Security Escort", desc: "Request campus guard accompaniment.", icon: "fa-shield-alt" },
+                { title: "SOS Beacon", desc: "Instant location ping to security.", icon: "fa-bullhorn" }
             ],
             career: [
-                { id: 26, title: "Job Board", icon: "fa-id-badge", desc: "On-campus internships and career counseling." },
-                { id: 27, title: "Grants & Research", icon: "fa-microscope", desc: "Curated STEM scholarships for women." },
-                { id: 28, title: "Research Portfolio", icon: "fa-folder-open", desc: "Showcase your PBL projects to recruiters." },
-                { id: 29, title: "Writing Support", icon: "fa-pen-fancy", desc: "Grammar and citation help for thesis." }
+                { title: "STEM Grants", desc: "Scholarships curated for women.", icon: "fa-microscope" },
+                { title: "Job Board", desc: "On-campus internship alerts.", icon: "fa-briefcase" },
+                { title: "Writing Lab", desc: "AI citation and thesis support.", icon: "fa-pen-nib" },
+                { title: "Alumni Network", desc: "Mentorship from senior women.", icon: "fa-link" }
             ],
-            engagement: [
-                { id: 30, title: "Badges & Rewards", icon: "fa-medal", desc: "Level up by completing academic tasks." },
-                { id: 31, title: "Sustainability Check", icon: "fa-leaf", desc: "Track your personal green impact." },
-                { id: 32, title: "Bulletin Board", icon: "fa-thumbtack", desc: "Moderated buy/sell/share service." },
-                { id: 33, title: "Study Playlists", icon: "fa-music", desc: "Focus-enhancing music for every cycle phase." }
+            productivity: [
+                { title: "Budget AI", desc: "Student spending tracker.", icon: "fa-wallet" },
+                { title: "Focus Timers", desc: "Phase-aligned Pomodoro work.", icon: "fa-clock" },
+                { title: "Smart Reminders", desc: "Alerts based on cognitive load.", icon: "fa-bell" },
+                { title: "Personal Diary", desc: "Journaling for mental clarity.", icon: "fa-journal-whills" }
             ],
-            inclusivity: [
-                { id: 34, title: "Accessibility Maps", icon: "fa-accessible-icon", desc: "Routes optimized for mobility needs." },
-                { id: 35, title: "Global Portal", icon: "fa-globe", desc: "Support for international students' adjustment." }
+            social: [
+                { title: "Women Forums", desc: "Private discussion safe spaces.", icon: "fa-comments" },
+                { title: "Roommate Finder", desc: "Peer compatibility matching.", icon: "fa-home" },
+                { title: "Club Hub", desc: "RSVP to campus cultural events.", icon: "fa-calendar-star" },
+                { title: "Volunteer Portal", desc: "Community impact tracking.", icon: "fa-hands-helping" }
             ]
         };
 
@@ -141,30 +114,25 @@
             const grid = document.getElementById('feature-grid');
             const title = document.getElementById('tab-title');
             grid.innerHTML = '';
-            
-            // Update Title
-            title.innerText = category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1');
+            title.innerText = category.charAt(0).toUpperCase() + category.slice(1);
 
-            // Update Active Button
             document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active-tab'));
             document.getElementById('btn-' + category).classList.add('active-tab');
 
             allFeatures[category].forEach(f => {
                 const card = document.createElement('div');
-                card.className = `feature-card bg-white p-6 rounded-3xl shadow-sm ${f.primary ? 'border-2 border-pink-500 ring-4 ring-pink-50' : ''}`;
+                card.className = `feature-card bg-white p-6 rounded-3xl ${f.primary ? 'border-2 border-pink-500 ring-4 ring-pink-50 shadow-lg' : 'shadow-sm'}`;
                 card.innerHTML = `
                     <div class="w-12 h-12 bg-pink-100 rounded-2xl flex items-center justify-center text-pink-600 mb-4">
                         <i class="fas ${f.icon} text-xl"></i>
                     </div>
                     <h4 class="font-black text-pink-900 mb-2">${f.title}</h4>
-                    <p class="text-sm text-gray-500 mb-4">${f.desc}</p>
-                    ${f.primary ? `<a href="${f.link}" target="_blank" class="block w-full text-center bg-pink-600 text-white py-2 rounded-xl font-bold">Launch AI Predictor</a>` : ''}
+                    <p class="text-sm text-gray-500 mb-6 leading-relaxed">${f.desc}</p>
+                    ${f.primary ? `<a href="${f.link}" target="_blank" class="block w-full text-center bg-pink-600 text-white py-3 rounded-xl font-bold shadow-md hover:bg-pink-700 transition-all">Launch AI Brain</a>` : ''}
                 `;
                 grid.appendChild(card);
             });
         }
-
-        // Initialize first tab
         showTab('academics');
     </script>
 </body>
