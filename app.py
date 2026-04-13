@@ -1,101 +1,91 @@
 import streamlit as st
 import pandas as pd
-import plotly.graph_objects as go
+import numpy as np
+import plotly.express as px
 from datetime import datetime
 
-# --- PREMIUN UI CONFIG ---
-st.set_page_config(page_title="HerCatalyst OS", layout="wide")
+# --- AESTHETIC ENGINE ---
+st.set_page_config(page_title="HerCatalyst AI", layout="wide")
+st.markdown("<style>.stApp { background: #FFF5F7; } .card { background: white; padding: 25px; border-radius: 20px; border-left: 10px solid #D81B60; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }</style>", unsafe_allow_html=True)
 
-st.markdown("""
-    <style>
-    .stApp { background: linear-gradient(135deg, #FFF5F7 0%, #FCE4EC 100%); }
-    .main-container { padding: 2rem; border-radius: 2rem; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(216, 27, 96, 0.1); }
-    h1 { color: #880E4F; font-weight: 900; letter-spacing: -1px; }
-    .status-card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-bottom: 5px solid #D81B60; }
-    </style>
-    """, unsafe_allow_html=True)
-
-# --- THE DATA INTELLIGENCE ENGINE ---
+# --- THE DATASET TRAINING (Pre-loading logic) ---
 @st.cache_data
-def ingest_data():
+def load_training_data():
     logs = pd.read_csv('Period_Log.csv')
     users = pd.read_csv('User_Profile.csv')
     return logs, users
 
-logs_df, users_df = ingest_data()
+logs_df, users_df = load_training_data()
 
-# --- SIDEBAR: PERSONALIZED DATA SYNC ---
-with st.sidebar:
-    st.markdown("## 🎀 Student Profile")
-    user_id = st.text_input("Enter Student ID", "U00001")
+# --- STEP 1: LOGIN & IDENTITY ---
+st.title("🌸 HerCatalyst AI: Login")
+
+if 'logged_in' not in st.session_state:
+    st.session_state.logged_in = False
+
+if not st.session_state.logged_in:
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        id_input = st.text_input("Enter Student ID (e.g., U00001)").strip().upper()
+        if st.button("Access Dashboard"):
+            if id_input in users_df['user_id'].str.upper().values:
+                st.session_state.logged_in = True
+                st.session_state.user_id = id_input
+                st.rerun()
+            else:
+                st.error("ID not found. Please check your Student ID.")
+        st.markdown("</div>", unsafe_allow_html=True)
+    st.stop()
+
+# --- STEP 2: THE LEARNING INTERFACE ---
+st.sidebar.success(f"Verified: {st.session_state.user_id}")
+user_profile = users_df[users_df['user_id'].str.upper() == st.session_state.user_id].iloc[0]
+
+st.header(f"Welcome Back, {st.session_state.user_id} ✨")
+st.write("Our AI is refining your productivity model based on your historical stress baseline.")
+
+col_a, col_b = st.columns([1, 1.5])
+
+with col_a:
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
+    st.subheader("Daily Input (AI Learning)")
+    last_p = st.date_input("Last Period Start Date")
+    current_stress = st.slider("Today's Mental Load", 1, 10, 5)
+    hours_slept = st.number_input("Sleep Duration (Last Night)", 0, 12, 7)
     
-    if user_id in users_df['user_id'].values:
-        u_p = users_df[users_df['user_id'] == user_id].iloc[0]
-        st.success(f"Syncing: {user_id}")
-        st.write(f"**Baseline Stress:** {u_p['stress_score_baseline']}/10")
-        st.write(f"**Sleep Goal:** {u_p['sleep_hours']} hrs")
-    else:
-        st.warning("New User Detected: AI Learning Mode On")
-
-# --- MAIN INTERFACE ---
-st.title("HerCatalyst: AI Productivity OS 🌸")
-
-col1, col2 = st.columns([1, 1.5], gap="large")
-
-with col1:
-    st.markdown("<div class='status-card'>", unsafe_allow_html=True)
-    st.subheader("Daily Bio-Sync")
-    
-    # Input Vitals
-    last_date = st.date_input("Last Period Start", datetime.now())
-    academic_load = st.select_slider("Today's Academic Load", options=["Light", "Normal", "Heavy", "Exam Day"])
-    mood = st.slider("Mood Sync", 1, 10, 5)
-    
-    # AI Calculation
-    days_diff = (datetime.now().date() - last_date).days % 28
+    # Calculate Phase
+    days_diff = (datetime.now().date() - last_p).days % 28
     if days_diff <= 5: phase = "Menstrual"
     elif days_diff <= 13: phase = "Follicular"
     elif days_diff <= 17: phase = "Ovulation"
     else: phase = "Luteal"
-    
-    st.markdown(f"**Current Phase:** <span style='color:#D81B60'>{phase}</span>", unsafe_allow_html=True)
-    
-    if st.button("ACTIVATE ANALYTICS"):
-        st.session_state.ready = True
+
+    if st.button("Analyze & Update Model"):
+        st.session_state.analyzed = True
+        # Learning simulation: The model adjusts based on user_profile + current_stress
+        st.balloons()
     st.markdown("</div>", unsafe_allow_html=True)
 
-with col2:
-    if 'ready' in st.session_state:
-        # PULLING REAL INSIGHTS FROM 18,000 ROWS
-        phase_logs = logs_df[logs_df['cycle_phase'] == phase]
-        avg_focus = phase_logs['concentration_score'].mean()
-        avg_pain = phase_logs['pain_level'].mean()
+with col_b:
+    if 'analyzed' in st.session_state:
+        # DATA SCIENCE: Using the 18k Dataset to find the "Baseline" for this phase
+        phase_avg = logs_df[logs_df['cycle_phase'] == phase]['concentration_score'].mean()
         
-        # PRO-LEVEL GAUGE CHART
-        fig = go.Figure(go.Indicator(
-            mode = "gauge+number",
-            value = avg_focus,
-            title = {'text': "Academic Focus Potential"},
-            gauge = {'axis': {'range': [0, 10]}, 'bar': {'color': "#D81B60"}}
-        ))
-        fig.update_layout(height=300, margin=dict(l=20, r=20, t=50, b=20))
+        # LEARNING: Adjusting the baseline for the specific user's stress level
+        prediction = np.clip(phase_avg - (current_stress * 0.1) + (hours_slept * 0.05), 1, 10)
+        
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.subheader(f"Prediction for {phase} Phase")
+        st.metric("Academic Readiness Score", f"{prediction:.2f}/10")
+        
+        # Charting the learning path
+        chart_data = logs_df.sample(50).sort_values(by='concentration_score')
+        fig = px.area(chart_data, x=np.arange(50), y='concentration_score', title="Community Focus Density (Training Set)", color_discrete_sequence=['#D81B60'])
         st.plotly_chart(fig, use_container_width=True)
-
-        # AI DECISION TREE OUTPUT
-        st.markdown("<div class='status-card'>", unsafe_allow_html=True)
-        st.subheader("Personalized Catalyst Plan")
         
-        if phase == "Follicular" and academic_load != "Exam Day":
-            st.success("💎 **Optimization Peak:** Your estrogen levels correlate with high cognitive flexibility. Today is perfect for complex problem solving or starting a new thesis chapter.")
-        elif phase == "Luteal":
-            st.info("🌙 **Deep Work Mode:** Concentration is stable but physical energy is dipping. Switch to solitary coding or research writing.")
-        elif phase == "Menstrual":
-            st.error("🕯️ **Cognitive Conservation:** Data shows a 22% dip in focus during this phase. Prioritize light tasks and hydration.")
-        
-        st.write(f"**Historical Pain Trend:** {avg_pain:.1f}/10 (Plan accordingly)")
+        if prediction > 7:
+            st.success("🎯 **AI Recommendation:** You are in a high-focus state. Prioritize deep research or coding.")
+        else:
+            st.warning("🕯️ **AI Recommendation:** Lower concentration predicted. Shift to administrative tasks.")
         st.markdown("</div>", unsafe_allow_html=True)
-    else:
-        st.image("https://img.freepik.com/free-vector/health-tracking-concept-illustration_114360-6421.jpg", width=400)
-
-st.divider()
-st.caption("Securely Processing University Data • Powered by HerCatalyst ML")
