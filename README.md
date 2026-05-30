@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌸 HerCatalyst
 
-## Getting Started
+> *An emotionally intelligent operating system for women in STEM.*
+> Where ambition meets wellbeing, productivity, safety, and community — all in one living digital ecosystem.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ What is HerCatalyst?
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+HerCatalyst is a futuristic Gen Z student platform designed for ambitious women balancing:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* academics 📚
+* wellness 🩺
+* productivity ⚡
+* safety 🛡️
+* career growth 💼
+* community 🌐
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Think:
 
-## Learn More
+> Notion + Pinterest + Flo + LinkedIn + Spotify + Duolingo energy
+> but rebuilt as a cinematic student OS.
 
-To learn more about Next.js, take a look at the following resources:
+This is not just a dashboard.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+It’s:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+* your planner
+* your wellness companion
+* your productivity system
+* your safe space
+* your growth ecosystem
+* your digital aura ✨
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# 🚀 The Vision
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Modern students are expected to:
+
+* ace academics
+* maintain mental health
+* network constantly
+* build portfolios
+* apply for internships
+* manage burnout
+* stay safe
+* stay productive
+* somehow still sleep???
+
+HerCatalyst exists to make that chaos feel:
+
+> connected, intelligent, beautiful, and human.
+
+---
+
+# 🌈 Core Experience
+
+HerCatalyst is designed around:
+
+* aura-inspired motion design
+* emotionally intelligent UX
+* floating mesh gradients
+* immersive interactions
+* soft futuristic aesthetics
+* glassmorphism
+* cinematic transitions
+* Gen Z emotional design language
+
+The interface is meant to feel:
+
+> alive.
+
+---
+
+# 🧠 The 35-Feature Ecosystem
+
+## 📚 Academics
+
+* Cycle-Aware Brain
+* E-Library Hub
+* Study Gam
