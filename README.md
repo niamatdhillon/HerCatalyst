@@ -16,11 +16,6 @@ HerCatalyst is a futuristic Gen Z student platform designed for ambitious women 
 * career growth 💼
 * community 🌐
 
-Think:
-
-> Notion + Pinterest + Flo + LinkedIn + Spotify + Duolingo energy
-> but rebuilt as a cinematic student OS.
-
 This is not just a dashboard.
 
 It’s:
