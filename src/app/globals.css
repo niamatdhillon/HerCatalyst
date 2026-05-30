@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 340 100% 99%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 341 82% 58%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 199 75% 48%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 340 82% 75%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 341 82% 58%;
+    --radius: 1rem;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  color: #0F172A;
+  background: #FFF7FA;
+  font-family: system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* --- RECHARTS FIX --- */
+/* Your terminal flagged height(-1) warnings for charts. This forces containers to behave! */
+.recharts-responsive-container {
+  min-width: 0 !important;
+  min-height: 240px !important;
+}
+
+/* --- PREMIUM CINEMATIC BACKGROUND MOTION --- */
+@keyframes fluid-blob-one {
+  0%, 100% { transform: translateY(0px) scale(1) rotate(0deg); }
+  33% { transform: translateY(-30px) scale(1.06) rotate(60deg); }
+  66% { transform: translateY(20px) scale(0.95) rotate(120deg); }
+}
+
+@keyframes fluid-blob-two {
+  0%, 100% { transform: translateY(0px) scale(1) rotate(0deg); }
+  50% { transform: translateY(35px) scale(1.08) rotate(-90deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.1); }
+}
+
+@keyframes float-preview {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-aura-one {
+  animation: fluid-blob-one 14s ease-in-out infinite;
+}
+
+.animate-aura-two {
+  animation: fluid-blob-two 18s ease-in-out infinite;
+}
+
+.animate-glow-slow {
+  animation: pulse-glow 10s ease-in-out infinite;
+}
+
+.animate-float-ui {
+  animation: float-preview 6s ease-in-out infinite;
+}
+
+.animate-float-ui-delayed {
+  animation: float-preview 6s ease-in-out infinite;
+  animation-delay: 2.5s;
+}
+
+/* --- GLASSMORPHISM SYSTEM LAYER --- */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.glass-modal {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
