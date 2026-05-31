@@ -131,17 +131,25 @@ export default function DashboardPage() {
         />
       </div>
 
-      <nav className="relative z-10 mx-auto mb-10 flex max-w-7xl items-center justify-between rounded-full border border-white/70 bg-white/45 px-5 py-3 shadow-sm backdrop-blur-2xl">
+      <nav className="relative z-10 mx-auto mb-10 flex max-w-7xl items-center justify-between gap-3 rounded-full border border-white/70 bg-white/45 px-5 py-3 shadow-sm backdrop-blur-2xl">
         <Link href="/" className="text-xl font-black">
           HerCatalyst
         </Link>
 
-        <div className="hidden gap-2 md:flex">
-          {quickLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="rounded-full px-4 py-2 text-sm font-bold text-[#6F4B5D] hover:bg-white/70">
-              {link.label}
-            </Link>
-          ))}
+        <div className="flex items-center gap-2">
+          <div className="hidden gap-2 md:flex">
+            {quickLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="rounded-full px-4 py-2 text-sm font-bold text-[#6F4B5D] hover:bg-white/70"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+
+          <LogoutButton />
         </div>
       </nav>
 
