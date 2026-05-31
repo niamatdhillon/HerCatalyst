@@ -18,26 +18,19 @@ export default function SignupPage() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function handleSignup(event: React.FormEvent) {
-    event.preventDefault();
-    setLoading(true);
-    setMessage("");
+async function handleSignup(event: React.FormEvent) {
+  event.preventDefault();
 
-    const cleanUsername = username.toLowerCase().trim().replace(/\s+/g, ".");
+  setLoading(true);
+  setMessage("");
 
-    const { data: existing } = await supabase
-      .from("profiles")
-      .select("username")
-      .eq("username", cleanUsername)
-      .maybeSingle();
+  try {
+    const cleanUsername = username
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, ".");
 
-    if (existing) {
-      setMessage("That username is already taken.");
-      setLoading(false);
-      return;
-    }
-
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -49,14 +42,21 @@ export default function SignupPage() {
       },
     });
 
+    console.log("SIGNUP DATA:", data);
+    console.log("SIGNUP ERROR:", error);
+
     if (error) {
       setMessage(error.message);
     } else {
-      setMessage("Check your email to confirm your HerCatalyst account.");
+      setMessage("Signup successful! Check your email.");
     }
-
-    setLoading(false);
+  } catch (err) {
+    console.error(err);
+    setMessage("Something went wrong during signup.");
   }
+
+  setLoading(false);
+}
 
   return (
     <main className="min-h-screen bg-[#FFF7FA] px-6 py-8 text-[#26111D]">
