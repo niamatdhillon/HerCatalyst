@@ -1,11 +1,43 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { ArrowLeft, Sparkles } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export default function LoginPage() {
+  const supabase = createClient();
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleLogin(event: React.FormEvent) {
+    event.preventDefault();
+    setLoading(true);
+    setMessage("");
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      setMessage(error.message);
+    } else {
+      router.push("/dashboard");
+      router.refresh();
+    }
+
+    setLoading(false);
+  }
+
   return (
     <main className="min-h-screen bg-[#FFF7FA] px-6 py-8 text-[#26111D]">
       <Link href="/" className="inline-flex items-center gap-2 font-semibold text-[#EC3A7A]">
@@ -23,7 +55,7 @@ export default function LoginPage() {
               Welcome back to your intelligent STEM workspace.
             </h1>
             <p className="mt-5 leading-7 text-white/65">
-              Pick up your planner, wellness logs, insights, and goals exactly where you left them.
+              Sign in with your verified email to open your private dashboard.
             </p>
           </div>
 
@@ -33,25 +65,25 @@ export default function LoginPage() {
             </div>
 
             <h2 className="text-3xl font-black">Log in</h2>
-            <p className="mt-2 text-[#6F4B5D]">Enter your details to open your dashboard.</p>
+            <p className="mt-2 text-[#6F4B5D]">Use your verified email and password.</p>
 
-            <form className="mt-8 space-y-5">
+            <form onSubmit={handleLogin} className="mt-8 space-y-5">
               <div className="space-y-2">
                 <Label>Email</Label>
-                <Input type="email" placeholder="you@example.com" />
+                <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
               </div>
 
               <div className="space-y-2">
                 <Label>Password</Label>
-                <Input type="password" placeholder="••••••••" />
+                <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
               </div>
 
-              <Link href="/dashboard">
-                <Button className="mt-2 w-full bg-[#EC3A7A] text-white hover:bg-[#d82f6d]">
-                  Log in
-                </Button>
-              </Link>
+              <Button disabled={loading} className="w-full bg-[#EC3A7A] text-white hover:bg-[#d82f6d]">
+                {loading ? "Opening..." : "Log in"}
+              </Button>
             </form>
+
+            {message && <p className="mt-5 text-center text-sm font-bold text-[#EC3A7A]">{message}</p>}
 
             <p className="mt-6 text-center text-sm text-[#6F4B5D]">
               New here?{" "}
