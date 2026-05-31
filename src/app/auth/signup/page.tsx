@@ -1,11 +1,63 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import { ArrowLeft, Rocket } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export default function SignupPage() {
+  const supabase = createClient();
+  const [displayName, setDisplayName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleSignup(event: React.FormEvent) {
+    event.preventDefault();
+    setLoading(true);
+    setMessage("");
+
+    const cleanUsername = username.toLowerCase().trim().replace(/\s+/g, ".");
+
+    const { data: existing } = await supabase
+      .from("profiles")
+      .select("username")
+      .eq("username", cleanUsername)
+      .maybeSingle();
+
+    if (existing) {
+      setMessage("That username is already taken.");
+      setLoading(false);
+      return;
+    }
+
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        data: {
+          username: cleanUsername,
+          display_name: displayName,
+        },
+      },
+    });
+
+    if (error) {
+      setMessage(error.message);
+    } else {
+      setMessage("Check your email to confirm your HerCatalyst account.");
+    }
+
+    setLoading(false);
+  }
+
   return (
     <main className="min-h-screen bg-[#FFF7FA] px-6 py-8 text-[#26111D]">
       <Link href="/" className="inline-flex items-center gap-2 font-semibold text-[#EC3A7A]">
@@ -20,10 +72,10 @@ export default function SignupPage() {
               Begin your catalyst era
             </div>
             <h1 className="text-4xl font-black leading-tight">
-              Build a dashboard that understands your ambition and your real life.
+              Create your private student OS.
             </h1>
             <p className="mt-5 leading-7 text-white/80">
-              Academics, wellness, safety, career, money, and community in one place.
+              Verify your email, claim your username, and enter HerCatalyst.
             </p>
           </div>
 
@@ -33,30 +85,35 @@ export default function SignupPage() {
             </div>
 
             <h2 className="text-3xl font-black">Create account</h2>
-            <p className="mt-2 text-[#6F4B5D]">Start your HerCatalyst workspace.</p>
+            <p className="mt-2 text-[#6F4B5D]">Your email must be verified before login.</p>
 
-            <form className="mt-8 space-y-5">
+            <form onSubmit={handleSignup} className="mt-8 space-y-5">
               <div className="space-y-2">
                 <Label>Name</Label>
-                <Input placeholder="Your name" />
+                <Input value={displayName} onChange={(e) => setDisplayName(e.target.value)} required />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Username</Label>
+                <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="niamat.codes" required />
               </div>
 
               <div className="space-y-2">
                 <Label>Email</Label>
-                <Input type="email" placeholder="you@example.com" />
+                <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
               </div>
 
               <div className="space-y-2">
                 <Label>Password</Label>
-                <Input type="password" placeholder="Create a password" />
+                <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
               </div>
 
-              <Link href="/dashboard">
-                <Button className="mt-2 w-full bg-[#EC3A7A] text-white hover:bg-[#d82f6d]">
-                  Create workspace
-                </Button>
-              </Link>
+              <Button disabled={loading} className="w-full bg-[#EC3A7A] text-white hover:bg-[#d82f6d]">
+                {loading ? "Creating..." : "Create account"}
+              </Button>
             </form>
+
+            {message && <p className="mt-5 text-center text-sm font-bold text-[#EC3A7A]">{message}</p>}
 
             <p className="mt-6 text-center text-sm text-[#6F4B5D]">
               Already have an account?{" "}
