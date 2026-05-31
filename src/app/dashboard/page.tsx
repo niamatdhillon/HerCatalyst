@@ -1,5 +1,6 @@
 "use client";
 
+import { LogoutButton } from "@/components/auth/logout-button";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
